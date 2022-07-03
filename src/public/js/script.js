@@ -9,6 +9,7 @@ const baseURL = 'http://api.weatherstack.com/current';
 const form = document.querySelector('form');
 const search = document.querySelector('input');
 const weather = document.querySelector('.weather-result')
+
 const makeWeather = (data) => {
     const result = `In ${data.location.country}, ${data.location.name} current temperature is ${data.current.temperature}, feels like ${data.current.feelslike}, `
     return result;
