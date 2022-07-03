@@ -4,13 +4,13 @@ const baseURL = 'http://api.weatherstack.com/current?access_key=48fd142ce7131954
 
 const forecast = (address, callback) => {
     const url = `${baseURL}&query=${address}`;
-    request({ url, json: true }, (error, { body }) => {
+    request({ url, json: true }, (error, data) => {
         if (error) {
             callback('Unable to connect to weather service!', undefined)
-        } else if (body.error) {
+        } else if (data.body.error) {
             callback('Unable to find location', undefined)
         } else {
-            callback(undefined, `In ${body.location.country}, ${body.location.name} current temperature is ${body.current.temperature}, feels like ${body.current.feelslike}`);
+            callback(undefined, {location: `${data.body.location.country}, ${data.body.location.name}`, info: `Current temperature is ${data.body.current.temperature}, feels like ${data.body.current.feelslike}`});
         }
     })
 }
