@@ -45,28 +45,21 @@ app.get('/about', (req, res)=>{
 app.get('/weather', (req, res)=>{
     const address = req.query.address;
     
-    if(!address){
-        return res.render('404', {
-            title:'404',
-            name:'Turaev Maqsud',
-            error:'Address has not provided'
+    if (!address) {
+        return res.send({
+            error: 'You must provide an address!'
         })
     }
 
     forecast(address, (error, data)=>{
-        if(error){
-            return res.render('404', {
-                title:'About me',
-                name:'Turaev Maqsud',
-                error: error
-            });
+        if (error) {
+            return res.send({ error })
         }
 
-        res.render('index', {
-            title:'Weather',
-            currentWeather:data,
-            name:'Turaev Maqsud'
-    
+        res.send({
+            forecast: data,
+            location:address,
+            address: address
         })
     });
    
